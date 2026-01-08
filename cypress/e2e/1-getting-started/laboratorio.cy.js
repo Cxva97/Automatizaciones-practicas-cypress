@@ -14,3 +14,5 @@ describe('example to-do app', () => {
     cy.get('.text-black.text-center').should('have.text', 'Total: $0.00')
   })
 })
+
+//hola
