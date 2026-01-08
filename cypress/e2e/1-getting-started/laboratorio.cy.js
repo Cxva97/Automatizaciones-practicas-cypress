@@ -10,6 +10,7 @@ describe('example to-do app', () => {
     .contains('button', 'Añadir al carrito')
     .click()
     cy.get('[data-at="cart-opener"]').click()
+    cy.get('[data-at="empty-cart"]').click()
 
     
 
