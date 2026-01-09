@@ -44,7 +44,7 @@ describe('example to-do app', () => {
   it('manejo de dropdown', ()=>{
     cy.get('[data-at="practice-country"]').select('Colombia')
     cy.get('[data-at="practice-country"]').should('be.visible')
-    .and('have.value', 'Colombia')
+    .and('have.value', 'Colombia')//
   })
 
   it('manejo de radio buttons', ()=>{
