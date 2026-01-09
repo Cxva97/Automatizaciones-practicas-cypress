@@ -1,10 +1,13 @@
 /// <reference types="cypress" />
+const ambiente = Cypress.env('ambiente') 
+const baseUrl= Cypress.env(`${ambiente}Url`)
+
 describe('example to-do app', () => {
   beforeEach(() => {
-    cy.setCookie('__AUTH-TOKEN-APP', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ3Y2E5NDJjLThlZDktNGIxNy05NTJjLWU2YzVhNGI1MmEwNyIsImlhdCI6MTc2NzkwOTkwNiwiZXhwIjoxNzcwNTAxOTA2fQ.357waHqowaL6Rn8cQab-KFnzgkQlVc5LDGSO-EDgQaA',
-      {secure:true}
-    )
-    cy.visit('https://www.laboratoriodetesting.com/form-practice')
+    cy.setCookie('__AUTH-TOKEN-APP', Cypress.env('cookie'), 
+    /*eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ3Y2E5NDJjLThlZDktNGIxNy05NTJjLWU2YzVhNGI1MmEwNyIsImlhdCI6MTc2NzkwOTkwNiwiZXhwIjoxNzcwNTAxOTA2fQ.357waHqowaL6Rn8cQab-KFnzgkQlVc5LDGSO-EDgQaA */
+      {secure:true})
+    cy.visit(`${baseUrl}form-practice`)
   })
 
   it('displays two todo items by default', () => {
@@ -52,12 +55,15 @@ describe('example to-do app', () => {
   })
 
   it('write in camps', ()=>{
+    cy.viewport('iphone-xr') //cambiar el tamaño de la pantalla
     cy.get('[data-at="practice-name"]').type('Cesar') //comando buscado por mi mismo
     // {force:true} sirve para forzar la accion en caso de que el elemento este oculto o deshabilitado
     cy.get('[name="password"]').type('1q2w3e{enter}')  //comando que me dio cypress
   })
 
   it.only('llenar formulario y enviar', ()=>{
+    cy.log(Cypress.env('username'))  //acceder a las variables de entorno del cypress config
+    // cy.log(Cypress.env('terminal')) //variable ent desde la terminal
     cy.get('[data-at="practice-submit"]').should('be.disabled').as('BotonEnviar')
     cy.get('[data-at="practice-name"]').type('Cesar')
     cy.get('[name="password"]').type('1q2w3e')
