@@ -58,7 +58,7 @@ describe('example to-do app', () => {
   })
 
   it.only('llenar formulario y enviar', ()=>{
-    cy.get('[data-at="practice-submit"]').should('be.disabled')
+    cy.get('[data-at="practice-submit"]').should('be.disabled').as('BotonEnviar')
     cy.get('[data-at="practice-name"]').type('Cesar')
     cy.get('[name="password"]').type('1q2w3e')
     cy.get('#sch_Mañana').click()
@@ -66,11 +66,13 @@ describe('example to-do app', () => {
     cy.get('[id="Pruebas manuales"]').check()
     cy.get('[data-at="practice-interests-devops"]').check()
     cy.get('[data-at="practice-dateOfBirth"]').type('1997-04-10') //truco, escribir acorde al formato que indica en el DOM
-    cy.get('[data-at="practice-submit"]').should('be.enabled')
-    cy.get('[data-at="practice-submit"]').click()
+    cy.get('@BotonEnviar').should('be.enabled')
+    cy.get('@BotonEnviar').click()
     cy.get('.swal2-confirm').click() //cypress 
     // .swal2-confirm.swal2-styled.swal2-default-outline (propia busqueda)
   })
+  
+  
 })
 
 //hola
