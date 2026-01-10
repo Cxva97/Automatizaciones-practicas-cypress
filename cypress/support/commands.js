@@ -23,3 +23,33 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('DatosPersonales', (nombre, password) => { 
+    cy.log(Cypress.env('username'))  //acceder a las variables de entorno del cypress config
+    // cy.log(Cypress.env('terminal')) //variable ent desde la terminal
+    //Establece nombre y password
+    //Esta linea verifica que el boton enviar este deshabilitado
+    cy.get('[data-at="practice-submit"]').should('be.disabled').as('BotonEnviar')
+    cy.get('[data-at="practice-name"]').type(nombre)
+    cy.get('[name="password"]').type(password)
+})
+
+Cypress.Commands.add('detalleContacto', (pais,fecha) => {
+    //Horario de contacto
+    //Pais
+    //intereses 
+    //fecha de nacimiento
+    cy.get('#sch_Mañana').click()
+    cy.get('[data-at="practice-country"]').select(pais)
+    cy.get('[id="Pruebas manuales"]').check()
+    cy.get('[data-at="practice-interests-devops"]').check()
+    cy.get('[data-at="practice-dateOfBirth"]').type(fecha) //truco, escribir acorde al formato que indica en el DOM
+})
+
+Cypress.Commands.add('EnviarFormulario', () => {
+    //Boton enviar
+    cy.get('@BotonEnviar').should('be.enabled')
+    cy.get('@BotonEnviar').click()
+    cy.get('.swal2-confirm').click() //cypress 
+    // .swal2-confirm.swal2-styled.swal2-default-outline (propia busqueda)
+})

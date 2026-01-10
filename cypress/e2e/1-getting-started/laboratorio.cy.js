@@ -62,20 +62,20 @@ describe('example to-do app', () => {
   })
 
   it.only('llenar formulario y enviar', ()=>{
-    cy.log(Cypress.env('username'))  //acceder a las variables de entorno del cypress config
-    // cy.log(Cypress.env('terminal')) //variable ent desde la terminal
+    cy.DatosPersonales('Cesar','1q2w3e')
+    cy.detalleContacto('Colombia','1997-04-10')
+    cy.EnviarFormulario()
+  })
+
+  it.only('llenar formulario y enviar - distinta data', ()=>{
+    cy.DatosPersonales('Gaby','4r5t6y')
+    cy.detalleContacto('Argentina','2002-07-06')
+    cy.EnviarFormulario()
+  })
+
+  it.only('Verificar que todos los campos son required', ()=>{
+    cy.detalleContacto('Colombia','1997-04-10')
     cy.get('[data-at="practice-submit"]').should('be.disabled').as('BotonEnviar')
-    cy.get('[data-at="practice-name"]').type('Cesar')
-    cy.get('[name="password"]').type('1q2w3e')
-    cy.get('#sch_Mañana').click()
-    cy.get('[data-at="practice-country"]').select('Colombia')
-    cy.get('[id="Pruebas manuales"]').check()
-    cy.get('[data-at="practice-interests-devops"]').check()
-    cy.get('[data-at="practice-dateOfBirth"]').type('1997-04-10') //truco, escribir acorde al formato que indica en el DOM
-    cy.get('@BotonEnviar').should('be.enabled')
-    cy.get('@BotonEnviar').click()
-    cy.get('.swal2-confirm').click() //cypress 
-    // .swal2-confirm.swal2-styled.swal2-default-outline (propia busqueda)
   })
   
   
